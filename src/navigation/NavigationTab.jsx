@@ -2,6 +2,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { StyleSheet } from 'react-native'
 import { Fontisto } from '@expo/vector-icons'
 import { COLORS, SPACING } from '../utils/theme'
+import { HomeScreen } from '../screens/HomeScreen'
 
 const Tab = createBottomTabNavigator()
 
@@ -25,7 +26,9 @@ const screenOptions = ({ route }) => {
 
 export function NavigationTab () {
   return (
-    <Tab.Navigator screenOptions={screenOptions} />
+    <Tab.Navigator screenOptions={screenOptions}>
+      <Tab.Screen name='Home' component={HomeScreen} />
+    </Tab.Navigator>
   )
 }
 
