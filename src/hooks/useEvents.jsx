@@ -16,7 +16,7 @@ export function useEvents () {
       .then((data) => {
         const { content, nextPage } = data
         setEvents([...events, ...content])
-        nextPage !== 'null' ? setNextUrl(nextPage) : setNextUrl(null)
+        nextPage === null ? setNextUrl(null) : setNextUrl(nextPage)
       })
       .catch(error => {
         console.log({ error })
