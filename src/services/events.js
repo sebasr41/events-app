@@ -1,6 +1,6 @@
 import { BACKEND_URL } from '../utils/constants'
 
-const defaultUrl = `${BACKEND_URL}/news?limit=10&offset=0`
+const defaultUrl = `${BACKEND_URL}/news?limit=5&offset=0`
 
 export const getEvents = (url) => {
   const urlToFetch = url === null ? defaultUrl : url
