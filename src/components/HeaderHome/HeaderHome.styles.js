@@ -1,11 +1,12 @@
-import { StyleSheet } from 'react-native'
+import { StatusBar, StyleSheet } from 'react-native'
 import { COLORS, FONT_SIZE, SPACING } from '../../utils/theme'
 
 export const styles = StyleSheet.create({
   container: {
     width: '90%',
     marginLeft: 'auto',
-    marginRight: 'auto'
+    marginRight: 'auto',
+    marginTop: StatusBar.currentHeight
   },
   title: {
     fontSize: FONT_SIZE.lg,
