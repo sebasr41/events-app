@@ -3,8 +3,8 @@ import { FlatList, Text, ActivityIndicator } from 'react-native'
 import { NewsCard } from '../../components/NewsCard'
 import { HeaderHome } from '../../components/HeaderHome'
 import { COLORS } from '../../utils/theme'
-import { Loader } from '../../components/Loader'
 import { useEvents } from '../../hooks/useEvents'
+import { SkeletonCardList } from '../../components/SkeletonCardList'
 
 export function HomeScreen () {
   const {
@@ -19,7 +19,7 @@ export function HomeScreen () {
     <>
     <HeaderHome setNextUrl={setNextUrl} loadEvents={loadEvents} />
     {isLoading
-      ? <Loader />
+      ? <SkeletonCardList />
       : <FlatList
           data={events}
           renderItem={({ item }) => <NewsCard item={item} />}
