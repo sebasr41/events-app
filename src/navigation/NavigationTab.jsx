@@ -2,7 +2,9 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { StyleSheet } from 'react-native'
 import { Fontisto } from '@expo/vector-icons'
 import { COLORS, SPACING } from '../utils/theme'
+//import { HomeDetailStackScreen } from '../screens/HomeScreen/HomeDetailStackScreen'
 import { HomeScreen } from '../screens/HomeScreen'
+//import { DetailScreen } from '../screens/DetailScreen'
 
 const Tab = createBottomTabNavigator()
 
