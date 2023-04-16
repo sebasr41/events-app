@@ -1,11 +1,18 @@
 import React from 'react'
-import {View, Text} from 'react-native'
+import {View, Text, ScrollView} from 'react-native'
 
-export const DetailScreen = () => {
+export const DetailScreen = ({route}) => {
+  const { data } = route.params
   return (
+   <ScrollView>
     <View>
-      <Text> DETALLE DE EVENTO</Text>
+      <ScrollView horizontal pagingEnabled>
+        <Text>
+          {data.content}
+        </Text>     
+      </ScrollView>      
     </View>
+   </ScrollView>
   )
 }
 

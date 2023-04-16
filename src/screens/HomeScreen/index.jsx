@@ -6,7 +6,8 @@ import { COLORS } from '../../utils/theme'
 import { useEvents } from '../../hooks/useEvents'
 import { SkeletonCardList } from '../../components/SkeletonCardList'
 
-export function HomeScreen () {
+export function HomeScreen (  {navigation}
+) {
   const {
     events,
     isLoading,
@@ -15,6 +16,7 @@ export function HomeScreen () {
     loadEvents
   } = useEvents()
 
+
   return (
     <>
     <HeaderHome setNextUrl={setNextUrl} loadEvents={loadEvents} />
@@ -22,7 +24,7 @@ export function HomeScreen () {
       ? <SkeletonCardList />
       : <FlatList
           data={events}
-          renderItem={({ item }) => <NewsCard item={item} />}
+          renderItem={({ item }) => <NewsCard item={item} navigation={navigation}/>}
           keyExtractor={item => item._id}
           ItemSeparatorComponent={<Text> </Text>}
           showsVerticalScrollIndicator={false}

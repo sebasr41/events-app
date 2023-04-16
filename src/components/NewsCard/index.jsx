@@ -1,11 +1,16 @@
 import { View, Image, Text, Pressable} from 'react-native'
 import { styles } from './NewsCard.styles'
 
+
 export function NewsCard (props) {
-  const { item: { author, date, category, images, title } } = props
+  const { item: { author, date, category, images, title }, navigation} = props
+
+const goToDetail = (data) => {
+  navigation.navigate("Detail",{data})
+}
 
   return (
-    <Pressable onPress={() => console.warn(title)}>
+    <Pressable onPress={() => goToDetail(props.item)}>
       <View style={styles.container}>
         <Image
           style={styles.image}
@@ -20,4 +25,5 @@ export function NewsCard (props) {
       </View>
      </Pressable> 
   )
+
 }
