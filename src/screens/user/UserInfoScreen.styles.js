@@ -24,7 +24,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   profileEmail: {
-    fontSize: 24,
+    fontSize: 20,
     fontWeight: 'bold'
   },
   profileLocation: {

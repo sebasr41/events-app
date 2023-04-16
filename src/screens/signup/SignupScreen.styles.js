@@ -4,6 +4,7 @@ import { COLORS } from '../../utils/theme'
 export const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
+    position: 'relative',
     flex: 1,
     padding: 16,
     backgroundColor: '#fff',
@@ -21,7 +22,7 @@ export const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 20,
     paddingHorizontal: 10,
-    marginBottom: 5
+    marginBottom: 10
   },
   errorText: {
     color: 'red',
@@ -32,7 +33,7 @@ export const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 20,
-    marginTop: 8,
+    marginTop: 5,
     alignItems: 'center'
   },
   buttonText: {
@@ -45,9 +46,14 @@ export const styles = StyleSheet.create({
     marginTop: 10,
     justifyContent: 'center'
   },
-  passwordToggleText: {
-    color: 'blue'
+  passwordToggle: {
+    marginLeft: 8
   },
+  passwordToggleText: {
+    color: 'blue',
+    position: 'relative'
+  },
+
   switchText: {
     marginVertical: 10
   },
@@ -57,7 +63,8 @@ export const styles = StyleSheet.create({
   },
   toggleIcon: {
     position: 'relative',
-    top: -37,
+    top: -41,
     left: 250
+
   }
 })

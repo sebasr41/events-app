@@ -5,7 +5,7 @@ import { UserContext } from '../../contexts/UserContext'
 
 export const UserInfoScreen = () => {
   const { currentUser, setCurrentUser } = useContext(UserContext)
-
+  console.log(currentUser)
   const handleLogout = () => {
     setCurrentUser(null)
   }
@@ -18,7 +18,7 @@ export const UserInfoScreen = () => {
           source={require('../../../assets/images/avatar.png')}
         />
         <View style={styles.profileInfo}>
-          <Text style={styles.profileEmail}>{currentUser.email}</Text>
+          <Text style={styles.profileEmail}>{currentUser}</Text>
         </View>
         <TouchableOpacity style={styles.button} onPress={handleLogout}>
           <Text style={styles.buttonText}>Salir</Text>

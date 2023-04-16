@@ -1,22 +1,17 @@
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import { View, Text, TextInput, TouchableOpacity } from 'react-native'
-import { styles } from './LoginScreen.styles'
+import { styles } from './SignupScreen.styles'
 import { useForm, Controller } from 'react-hook-form'
-import { login } from '../../services/user.service'
-import { UserContext } from '../../contexts/UserContext'
+import { signup } from '../../services/user.service'
 import { Entypo } from '@expo/vector-icons'
-import { useNavigation } from '@react-navigation/native'
 
-export const LoginScreen = ({ onSwitchToRegister }) => {
+export const SignupScreen = ({ onSwitchToLogin }) => {
   const [isPasswordVisible, setPasswordVisible] = useState(false)
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!isPasswordVisible)
   }
 
-  // const [Options, setOptions] = useState(true)
-  const navigation = useNavigation()
-  const { setCurrentUser } = useContext(UserContext)
   const { control, handleSubmit, formState: { errors } } = useForm({
     defaultValues: {
       email: '',
@@ -24,20 +19,37 @@ export const LoginScreen = ({ onSwitchToRegister }) => {
     }
   })
 
-  const handleLogin = ({ email, password }) => {
+  const handleSignUp = ({ email, password }) => {
     console.log('email', email)
     console.log('password', password)
-    login(email, password)
+    signup(email, password)
       .then(data => {
-        setCurrentUser(email)
-        navigation.navigate('Home')
+        console.log(data)
+        onSwitchToLogin()
       })
       .catch(err => console.warn(err))
   }
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Inicio de Sesión</Text>
+      <Text style={styles.title}>Registro</Text>
+      <Controller
+        control={control}
+        render={({ field: { onChange, onBlur, value } }) => (
+          <TextInput
+            style={styles.input}
+            placeholder='username'
+            onBlur={onBlur}
+            value={value}
+            onChangeText={onChange}
+            autoCapitalize='none'
+          />
+
+        )}
+        name='username'
+        rules={{ required: 'El username es requerido' }}
+      />
+      {errors.username && <Text style={styles.errorText}>{errors.username.message}</Text>}
       <Controller
         control={control}
         render={({ field: { onChange, onBlur, value } }) => (
@@ -68,33 +80,33 @@ export const LoginScreen = ({ onSwitchToRegister }) => {
               value={value}
               secureTextEntry={!isPasswordVisible}
             />
-
-            <TouchableOpacity
-              onPress={togglePasswordVisibility}
-              style={styles.toggleIcon}
-            >
-              <Text style={styles.passwordToggleText}>
-                {isPasswordVisible ? <Entypo name='eye-with-line' size={24} color='black' /> : <Entypo name='eye' size={24} color='black' />}
-              </Text>
-            </TouchableOpacity>
           </View>
+
         )}
         name='password'
         rules={{ required: 'La constraseña es requerida' }}
       />
-
+      <TouchableOpacity
+        onPress={togglePasswordVisibility}
+        style={styles.toggleIcon}
+      >
+        <Text style={styles.passwordToggleText}>
+          {isPasswordVisible ? <Entypo name='eye-with-line' size={24} color='black' /> : <Entypo name='eye' size={24} color='black' />}
+        </Text>
+      </TouchableOpacity>
       {errors.password && <Text style={styles.errorText}>{errors.password.message}</Text>}
 
-      <TouchableOpacity style={styles.button} onPress={handleSubmit(handleLogin)}>
-        <Text style={styles.buttonText}>Entrar</Text>
+      <TouchableOpacity style={styles.button} onPress={handleSubmit(handleSignUp)}>
+        <Text style={styles.buttonText}>Registrar</Text>
       </TouchableOpacity>
       <View style={styles.tittleRegister}>
         <Text style={styles.switchText}>
-          ¿No tienes una cuenta?{' '}
-          <Text style={styles.switchLink} onPress={onSwitchToRegister}>
-            Registrarse
+          ¿Ya tienes una cuenta?{' '}
+          <Text style={styles.switchLink} onPress={onSwitchToLogin}>
+            Iniciar sesión
           </Text>
         </Text>
+
       </View>
 
     </View>
