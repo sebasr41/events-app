@@ -1,5 +1,5 @@
 import { Dimensions, StyleSheet } from 'react-native'
-import { COLORS, FONT_SIZE, SPACING } from '../../utils/theme'
+import { COLORS, FONT_SIZE } from '../../utils/theme'
 
 const CARD_WIDTH = Dimensions.get('window').width * 0.8
 
@@ -8,11 +8,12 @@ export const styles = StyleSheet.create({
     position: 'relative',
     overflow: 'hidden',
     borderRadius: 20,
-    marginBottom: SPACING.md
+    height: 200,
+    flex: 1
   },
   image: {
     width: CARD_WIDTH,
-    height: 300
+    flex: 1
   },
   badge: {
     position: 'absolute',
