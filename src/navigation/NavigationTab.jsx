@@ -3,11 +3,13 @@ import { StyleSheet } from 'react-native'
 import { Fontisto } from '@expo/vector-icons'
 import { COLORS, SPACING } from '../utils/theme'
 import { HomeScreen } from '../screens/HomeScreen'
+import { FavoriteScreen } from '../screens/FavoriteScreen'
 
 const Tab = createBottomTabNavigator()
 
 const TAB_ICON = {
-  Home: 'home'
+  Home: 'home',
+  Favorites: 'bookmark-alt'
 }
 
 const screenOptions = ({ route }) => {
@@ -28,6 +30,7 @@ export function NavigationTab () {
   return (
     <Tab.Navigator screenOptions={screenOptions}>
       <Tab.Screen name='Home' component={HomeScreen} />
+      <Tab.Screen name='Favorites' component={FavoriteScreen} />
     </Tab.Navigator>
   )
 }
