@@ -4,12 +4,13 @@ import { Fontisto } from '@expo/vector-icons'
 import { COLORS, SPACING } from '../utils/theme'
 import { HomeScreen } from '../screens/HomeScreen'
 import { ProfileScreen } from '../screens/profile/ProfileScreen'
-
+import { FavoriteScreen } from '../screens/FavoriteScreen'
 const Tab = createBottomTabNavigator()
 
 const TAB_ICON = {
   Home: 'home',
   Profile: 'person'
+  Favorites: 'bookmark-alt'
 }
 const screenOptions = ({ route }) => {
   const iconName = TAB_ICON[route.name]
@@ -30,6 +31,7 @@ export function NavigationTab () {
     <Tab.Navigator screenOptions={screenOptions}>
       <Tab.Screen name='Home' component={HomeScreen} />
       <Tab.Screen name='Profile' component={ProfileScreen} />
+      <Tab.Screen name='Favorites' component={FavoriteScreen} />
     </Tab.Navigator>
   )
 }

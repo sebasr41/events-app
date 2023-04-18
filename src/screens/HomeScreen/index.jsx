@@ -1,31 +1,65 @@
-/* eslint-disable react/jsx-indent */
-import { FlatList, Text, View, ActivityIndicator } from 'react-native'
-import { styles } from './HomeScreen.styles'
+import { FlatList, Text, ActivityIndicator } from 'react-native'
 import { NewsCard } from '../../components/NewsCard'
 import { HeaderHome } from '../../components/HeaderHome'
 import { COLORS } from '../../utils/theme'
-import { Loader } from '../../components/Loader'
 import { useEvents } from '../../hooks/useEvents'
+import { Carousel } from '../../components/Carousel'
+import { SkeletonHome } from '../../components/SkeletonHome'
+import { NotFound } from '../../components/NotFound'
 
 export function HomeScreen () {
-  const { events, isLoading, nextUrl, loadEvents } = useEvents()
+  const {
+    events,
+    isLoading,
+    setIsLoading,
+    nextUrl,
+    setNextUrl,
+    loadEvents
+  } = useEvents({ isLatest: false })
+
+  const {
+    events: latestEvents,
+    isLoading: isLoadingLatestEvents,
+    setIsLoading: setIsLoadingLatestEvents,
+    setNextUrl: setNextUrlToLatestEvents,
+    loadEvents: loadLatestEvents
+  } = useEvents({ isLatest: true })
 
   return (
-    isLoading
-      ? <Loader />
-      : <View style={styles.container}>
-        <FlatList
-          data={events}
-          renderItem={({ item }) => <NewsCard item={item} />}
-          keyExtractor={item => item._id}
-          ItemSeparatorComponent={<Text> </Text>}
-          showsVerticalScrollIndicator={false}
-          ListHeaderComponent={() => <HeaderHome />}
-          onEndReached={nextUrl && loadEvents}
-          onEndReachedThreshold={0.1}
-          ListFooterComponent={nextUrl && <ActivityIndicator size='large' color={COLORS.primary} />}
-        />
-        </View>
-
+    <>
+      <HeaderHome
+        setNextUrl={setNextUrl}
+        loadEvents={loadEvents}
+        setIsLoading={setIsLoading}
+        setNextUrlToLatestEvents={setNextUrlToLatestEvents}
+        loadLatestEvents={loadLatestEvents}
+        setIsLoadingLatestEvents={setIsLoadingLatestEvents}
+      />
+      {isLoading && isLoadingLatestEvents
+        ? <SkeletonHome />
+        : <FlatList
+            data={events}
+            renderItem={({ item }) => <NewsCard item={item} />}
+            keyExtractor={item => item._id}
+            ItemSeparatorComponent={<Text> </Text>}
+            showsVerticalScrollIndicator={false}
+            onEndReached={nextUrl && loadEvents}
+            onEndReachedThreshold={0.1}
+            ListEmptyComponent={latestEvents.length === 0 && <NotFound />}
+            ListHeaderComponent={
+              <Carousel
+                events={events}
+                latestEvents={latestEvents}
+                isLoadingLatestEvents={isLoadingLatestEvents}
+              />
+          }
+            ListFooterComponent={nextUrl &&
+              <ActivityIndicator
+                style={{ marginVertical: 10 }}
+                size='large'
+                color={COLORS.primary}
+              />}
+          />}
+    </>
   )
 }

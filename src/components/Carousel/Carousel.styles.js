@@ -8,11 +8,12 @@ export const styles = StyleSheet.create({
     position: 'relative',
     overflow: 'hidden',
     borderRadius: 20,
-    marginBottom: SPACING.md
+    height: 200,
+    flex: 1
   },
   image: {
     width: CARD_WIDTH,
-    height: 300
+    flex: 1
   },
   badge: {
     position: 'absolute',
@@ -41,5 +42,14 @@ export const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     overflow: 'hidden'
+  },
+  superTitle: {
+    fontSize: FONT_SIZE.lg,
+    fontWeight: 600,
+    marginBottom: SPACING.md,
+    width: '90%',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    marginTop: SPACING.sm
   }
 })
