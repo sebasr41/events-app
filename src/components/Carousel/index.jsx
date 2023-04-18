@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-indent */
 import { Dimensions, FlatList, Image, Platform, Text, View } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
 import { styles } from './Carousel.styles'
@@ -28,23 +29,27 @@ function Item (props) {
 }
 
 export function Carousel (props) {
-  const { latestEvents, isLoadingLatestEvents } = props
+  const { events, latestEvents, isLoadingLatestEvents } = props
 
   return (
     isLoadingLatestEvents
       ? <SkeletonCarousel />
-      : <FlatList
-          snapToAlignment='center'
-          decelerationRate={0}
-          snapToInterval={CARD_WIDTH + 25}
-          showsHorizontalScrollIndicator={false}
-          horizontal
-          contentContainerStyle={{
-            paddingHorizontal: Platform.OS === 'android' ? SPACING_FOR_CARD_INSET : 0
-          }}
-          ItemSeparatorComponent={<Text>     </Text>}
-          data={latestEvents}
-          renderItem={({ item }) => <Item item={item} />}
-        />
+      : <View>
+          {latestEvents.length !== 0 && <Text style={styles.superTitle}>Eventos recientes</Text>}
+          <FlatList
+            snapToAlignment='center'
+            decelerationRate={0}
+            snapToInterval={CARD_WIDTH + 25}
+            showsHorizontalScrollIndicator={false}
+            horizontal
+            contentContainerStyle={{
+              paddingHorizontal: Platform.OS === 'android' ? SPACING_FOR_CARD_INSET : 0
+            }}
+            ItemSeparatorComponent={<Text>     </Text>}
+            data={latestEvents}
+            renderItem={({ item }) => <Item item={item} />}
+          />
+          {events.length !== 0 && <Text style={styles.superTitle}>Recomendación</Text>}
+        </View>
   )
 }

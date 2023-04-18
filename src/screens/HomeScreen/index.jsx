@@ -1,11 +1,11 @@
-/* eslint-disable react/jsx-indent */
 import { FlatList, Text, ActivityIndicator } from 'react-native'
 import { NewsCard } from '../../components/NewsCard'
 import { HeaderHome } from '../../components/HeaderHome'
 import { COLORS } from '../../utils/theme'
 import { useEvents } from '../../hooks/useEvents'
-import { SkeletonCardList } from '../../components/SkeletonCardList'
 import { Carousel } from '../../components/Carousel'
+import { SkeletonHome } from '../../components/SkeletonHome'
+import { NotFound } from '../../components/NotFound'
 
 export function HomeScreen () {
   const {
@@ -34,24 +34,32 @@ export function HomeScreen () {
         setNextUrlToLatestEvents={setNextUrlToLatestEvents}
         loadLatestEvents={loadLatestEvents}
         setIsLoadingLatestEvents={setIsLoadingLatestEvents}
-      >
-        <Carousel
-          latestEvents={latestEvents}
-          isLoadingLatestEvents={isLoadingLatestEvents}
-        />
-      </HeaderHome>
-    {isLoading
-      ? <SkeletonCardList />
-      : <FlatList
-          data={events}
-          renderItem={({ item }) => <NewsCard item={item} />}
-          keyExtractor={item => item._id}
-          ItemSeparatorComponent={<Text> </Text>}
-          showsVerticalScrollIndicator={false}
-          onEndReached={nextUrl && loadEvents}
-          onEndReachedThreshold={0.1}
-          ListFooterComponent={nextUrl && <ActivityIndicator style={{ marginBottom: 10, marginTop: 10 }} size='large' color={COLORS.primary} />}
-        />}
+      />
+      {isLoading && isLoadingLatestEvents
+        ? <SkeletonHome />
+        : <FlatList
+            data={events}
+            renderItem={({ item }) => <NewsCard item={item} />}
+            keyExtractor={item => item._id}
+            ItemSeparatorComponent={<Text> </Text>}
+            showsVerticalScrollIndicator={false}
+            onEndReached={nextUrl && loadEvents}
+            onEndReachedThreshold={0.1}
+            ListEmptyComponent={latestEvents.length === 0 && <NotFound />}
+            ListHeaderComponent={
+              <Carousel
+                events={events}
+                latestEvents={latestEvents}
+                isLoadingLatestEvents={isLoadingLatestEvents}
+              />
+          }
+            ListFooterComponent={nextUrl &&
+              <ActivityIndicator
+                style={{ marginVertical: 10 }}
+                size='large'
+                color={COLORS.primary}
+              />}
+          />}
     </>
   )
 }
