@@ -4,8 +4,34 @@ import { styles } from './SignupScreen.styles'
 import { useForm, Controller } from 'react-hook-form'
 import { signup } from '../../services/user.service'
 import { Entypo } from '@expo/vector-icons'
-
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as yup from 'yup'
 export const SignupScreen = ({ onSwitchToLogin }) => {
+  const schema = yup.object({
+    username: yup.string()
+      .required('El nombre de usuario es obligatorio')
+      .min(3, 'El nombre de usuario debe tener al menos 3 caracteres')
+      .max(16, 'El nombre de usuario debe tener al menos un maximo 16 caracteres')
+      .matches(
+        /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/,
+        'El nombre de usuario debe contener  letras y números'
+      ),
+    email: yup.string()
+      .email('El correo electrónico no es válido')
+      .required('El correo electrónico es obligatorio')
+      .max(255, 'El correo electrónico no debe tener más de 255 caracteres')
+      .matches(
+        /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+        'El correo electrónico no es válido'
+      ),
+    password: yup.string()
+      .required('La contraseña es obligatoria')
+      .min(8, 'La contraseña debe tener al menos 8 caracteres')
+      .matches(
+        /^(?=.*\d)(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.*[a-z]).{8,}$/,
+        'La contraseña debe tener al menos un número, una mayúscula y un símbolo'
+      )
+  }).required()
   const [isPasswordVisible, setPasswordVisible] = useState(false)
 
   const togglePasswordVisibility = () => {
@@ -13,16 +39,15 @@ export const SignupScreen = ({ onSwitchToLogin }) => {
   }
 
   const { control, handleSubmit, formState: { errors } } = useForm({
+    resolver: yupResolver(schema),
     defaultValues: {
+      username: '',
       email: '',
       password: ''
     }
   })
-
-  const handleSignUp = ({ email, password }) => {
-    console.log('email', email)
-    console.log('password', password)
-    signup(email, password)
+  const handleSignUp = ({ email, password, username }) => {
+    signup(email, password, username)
       .then(data => {
         console.log(data)
         onSwitchToLogin()
@@ -97,7 +122,7 @@ export const SignupScreen = ({ onSwitchToLogin }) => {
       {errors.password && <Text style={styles.errorText}>{errors.password.message}</Text>}
 
       <TouchableOpacity style={styles.button} onPress={handleSubmit(handleSignUp)}>
-        <Text style={styles.buttonText}>Registrar</Text>
+        <Text style={styles.buttonText}>Registrarse</Text>
       </TouchableOpacity>
       <View style={styles.tittleRegister}>
         <Text style={styles.switchText}>

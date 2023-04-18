@@ -5,32 +5,46 @@ import { useForm, Controller } from 'react-hook-form'
 import { login } from '../../services/user.service'
 import { UserContext } from '../../contexts/UserContext'
 import { Entypo } from '@expo/vector-icons'
-import { useNavigation } from '@react-navigation/native'
-
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as yup from 'yup'
+import * as SecureStore from 'expo-secure-store'
 export const LoginScreen = ({ onSwitchToRegister }) => {
+  const schema = yup.object({
+    email: yup.string()
+      .email('El correo electrónico no es válido')
+      .required('El correo electrónico es obligatorio')
+      .max(255, 'El correo electrónico no debe tener más de 255 caracteres')
+      .matches(
+        /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+        'El correo electrónico no es válido'
+      ),
+    password: yup.string()
+      .required('La contraseña es obligatoria')
+  }).required()
+
   const [isPasswordVisible, setPasswordVisible] = useState(false)
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!isPasswordVisible)
   }
 
-  // const [Options, setOptions] = useState(true)
-  const navigation = useNavigation()
   const { setCurrentUser } = useContext(UserContext)
   const { control, handleSubmit, formState: { errors } } = useForm({
+    resolver: yupResolver(schema),
     defaultValues: {
       email: '',
       password: ''
     }
   })
+  async function save (key, value) {
+    await SecureStore.setItemAsync(key, value)
+  }
 
   const handleLogin = ({ email, password }) => {
-    console.log('email', email)
-    console.log('password', password)
     login(email, password)
       .then(data => {
-        setCurrentUser(email)
-        navigation.navigate('Home')
+        setCurrentUser(data.response.user.email)
+        save('token', data.response.token)
       })
       .catch(err => console.warn(err))
   }
