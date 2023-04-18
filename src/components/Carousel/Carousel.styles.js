@@ -1,5 +1,5 @@
 import { Dimensions, StyleSheet } from 'react-native'
-import { COLORS, FONT_SIZE } from '../../utils/theme'
+import { COLORS, FONT_SIZE, SPACING } from '../../utils/theme'
 
 const CARD_WIDTH = Dimensions.get('window').width * 0.8
 
@@ -42,5 +42,14 @@ export const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     overflow: 'hidden'
+  },
+  superTitle: {
+    fontSize: FONT_SIZE.lg,
+    fontWeight: 600,
+    marginBottom: SPACING.md,
+    width: '90%',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    marginTop: SPACING.sm
   }
 })

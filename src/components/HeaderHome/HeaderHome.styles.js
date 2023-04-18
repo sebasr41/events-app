@@ -1,5 +1,5 @@
 import { StatusBar, StyleSheet } from 'react-native'
-import { COLORS, FONT_SIZE, SPACING } from '../../utils/theme'
+import { COLORS, FONT_SIZE } from '../../utils/theme'
 
 export const styles = StyleSheet.create({
   container: {
@@ -7,11 +7,6 @@ export const styles = StyleSheet.create({
     marginLeft: 'auto',
     marginRight: 'auto',
     marginTop: StatusBar.currentHeight
-  },
-  title: {
-    fontSize: FONT_SIZE.lg,
-    fontWeight: 600,
-    marginBottom: SPACING.md
   },
   superTitle: {
     fontSize: FONT_SIZE.xl,
@@ -23,8 +18,7 @@ export const styles = StyleSheet.create({
     marginBottom: 10
   },
   searchContainer: {
-    position: 'relative',
-    marginBottom: 10
+    position: 'relative'
   },
   searchIcon: {
     position: 'absolute',
@@ -34,7 +28,7 @@ export const styles = StyleSheet.create({
   },
   input: {
     height: 40,
-    backgroundColor: '#E8E2E2',
+    backgroundColor: COLORS['grashy-grey'],
     padding: 10,
     borderRadius: 10,
     paddingLeft: 45

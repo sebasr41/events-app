@@ -4,6 +4,7 @@ import { styles } from './HeaderHome.styles'
 import { useDebounce } from '../../hooks/useDebounce'
 import { useEffect, useState, useRef } from 'react'
 import { BACKEND_URL } from '../../utils/constants'
+import { COLORS } from '../../utils/theme'
 
 export function HeaderHome (props) {
   const {
@@ -12,9 +13,9 @@ export function HeaderHome (props) {
     setNextUrlToLatestEvents,
     loadLatestEvents,
     setIsLoading,
-    setIsLoadingLatestEvents,
-    children
+    setIsLoadingLatestEvents
   } = props
+
   const [value, setValue] = useState('')
   const debouncedText = useDebounce(value)
   const isFirstTime = useRef(true)
@@ -37,24 +38,17 @@ export function HeaderHome (props) {
   }, [debouncedText])
 
   return (
-    <View>
-      <View style={styles.container}>
-        <Text style={styles.superTitle}>Descubre</Text>
-        <Text style={styles.paragraph}>Todos los eventos más importantes de Jujuy</Text>
-        <View style={styles.searchContainer}>
-          <Fontisto name='search' size={24} color='#86858c' style={styles.searchIcon} />
-          <TextInput
-            placeholder='¿Qué evento estás buscando?'
-            style={styles.input}
-            value={value}
-            onChangeText={handleChange}
-          />
-        </View>
-        <Text style={styles.title}>Eventos recientes</Text>
-      </View>
-      {children}
-      <View style={styles.container}>
-        <Text style={styles.title}>Recomendación</Text>
+    <View style={styles.container}>
+      <Text style={styles.superTitle}>Descubre</Text>
+      <Text style={styles.paragraph}>Todos los eventos más importantes de Jujuy</Text>
+      <View style={styles.searchContainer}>
+        <Fontisto name='search' size={24} color={COLORS['light-gray']} style={styles.searchIcon} />
+        <TextInput
+          placeholder='¿Qué evento estás buscando?'
+          style={styles.input}
+          value={value}
+          onChangeText={handleChange}
+        />
       </View>
     </View>
   )
