@@ -23,11 +23,11 @@ export const styles = StyleSheet.create({
   profileInfo: {
     justifyContent: 'center'
   },
-  profileEmail: {
+  profileUsername: {
     fontSize: 20,
     fontWeight: 'bold'
   },
-  profileLocation: {
+  profileEmail: {
     fontSize: 16,
     color: '#777'
   },

@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { View } from 'react-native'
 import { styles } from './AuthScreen.styles'
-import { LoginScreen } from '../login/LoginScreen'
-import { SignupScreen } from '../signup/SignupScreen'
+import { LoginScreen } from '../LoginScreen'
+import { SignupScreen } from '../SignupScreen'
 
 export const AuthScreen = () => {
   const [showLogin, setShowLogin] = useState(true)
@@ -17,12 +17,8 @@ export const AuthScreen = () => {
   return (
     <View style={styles.container}>
       {showLogin
-        ? (
-          <LoginScreen onSwitchToRegister={handleSwitchToRegister} />
-          )
-        : (
-          <SignupScreen onSwitchToLogin={handleSwitchToLogin} />
-          )}
+        ? <LoginScreen onSwitchToRegister={handleSwitchToRegister} />
+        : <SignupScreen onSwitchToLogin={handleSwitchToLogin} />}
     </View>
   )
 }
