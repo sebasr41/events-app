@@ -1,5 +1,5 @@
 import { StyleSheet, StatusBar, Dimensions } from 'react-native'
-import { COLORS, FONT_SIZE } from '../../utils/theme'
+import { COLORS, FONT_SIZE, SPACING } from '../../utils/theme'
 
 export const styles = StyleSheet.create({
   container: {
@@ -9,24 +9,40 @@ export const styles = StyleSheet.create({
   },
   imageContainer: {
     height: 350,
+    position: 'relative',
+    overflow: 'hidden',
+    marginBottom: SPACING.md
   },
   image: {
     width: Dimensions.get('screen').width,
     height: 350,
     borderRadius: 20
   },
+  badge: {
+    position: 'absolute',
+    backgroundColor: COLORS.primary,
+    color: COLORS.white,
+    zIndex: 1,
+    padding: 10,
+    borderRadius: 20,
+    top: 10,
+    left: 10},
+
   subtitle: {
     color: COLORS['light-gray'],
     fontWeight: 600,
     marginLeft:10
   },
   title: {
+    position: 'absolute',
+    color: COLORS.white,
     fontSize: 24,
     fontWeight: 'bold',
-    marginTop:15,
+    marginTop:210,
     marginBottom: 10,
     marginRight:5,
     marginLeft:10,
+    zIndex:1,
   },
   location: {
     fontSize: 19,
@@ -59,7 +75,8 @@ export const styles = StyleSheet.create({
     lineHeight: 20,
     marginTop: 10,
     marginLeft:8,
-    marginRight:8
+    marginRight:8,
+    marginBottom:10,
   },
   map: {
     height: 300,
@@ -84,5 +101,32 @@ export const styles = StyleSheet.create({
   markerTitle:{
     backgroundColor: COLORS.primary,
     color:COLORS.white
+  },
+  linearGradient: {
+    position: 'absolute',
+    zIndex: 1,
+    width: '100%',
+    height: '100%',
+    overflow: 'hidden'
+  }, badge: {
+    position: 'absolute',
+    backgroundColor: COLORS.primary,
+    color: COLORS.white,
+    zIndex: 10,
+    padding: 10,
+    borderRadius: 20,
+    top: 10,
+    left: 10,
+    marginTop:160
+  },
+  textConteiner:{
+    backgroundColor:COLORS.white,
+    position: 'relative',
+    zIndex:10,
+    borderTopRightRadius:30,
+    borderTopLeftRadius:30,
+    marginTop:-50,
+    paddingTop: 15,
+
   }
 })
