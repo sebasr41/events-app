@@ -4,9 +4,8 @@ import { COLORS } from '../../utils/theme'
 export const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
-    position: 'relative',
     flex: 1,
-    padding: 16,
+    padding: 32,
     backgroundColor: '#fff',
     marginTop: StatusBar.currentHeight
   },
@@ -16,24 +15,32 @@ export const styles = StyleSheet.create({
     marginBottom: 16,
     textAlign: 'center'
   },
+  inputContainer: {
+    marginBottom: 12
+  },
   input: {
-    height: 40,
     borderColor: '#ccc',
     borderWidth: 1,
-    borderRadius: 20,
-    paddingHorizontal: 10,
-    marginBottom: 10
+    borderRadius: 16,
+    paddingHorizontal: 12,
+    marginBottom: 5,
+    padding: 8
   },
   errorText: {
     color: 'red',
-    marginBottom: 8
+    fontSize: 12
+  },
+  errorContainer: {
+    flexDirection: 'row',
+    gap: 6,
+    alignItems: 'center'
   },
   button: {
     backgroundColor: COLORS.primary,
     paddingVertical: 10,
     paddingHorizontal: 20,
-    borderRadius: 20,
-    marginTop: 5,
+    borderRadius: 16,
+    marginTop: 8,
     alignItems: 'center'
   },
   buttonText: {
@@ -41,30 +48,20 @@ export const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold'
   },
+  passwordToggleText: {
+    color: 'blue'
+  },
   tittleRegister: {
     flexDirection: 'row',
-    marginTop: 10,
+    marginTop: 20,
     justifyContent: 'center'
   },
-  passwordToggle: {
-    marginLeft: 8
-  },
-  passwordToggleText: {
-    color: 'blue',
-    position: 'relative'
-  },
-
-  switchText: {
-    marginVertical: 10
-  },
   switchLink: {
-    color: 'blue',
-    textDecorationLine: 'none'
+    color: COLORS.primary
   },
   toggleIcon: {
-    position: 'relative',
-    top: -41,
-    left: 250
-
+    position: 'absolute',
+    top: 10,
+    left: 260
   }
 })
