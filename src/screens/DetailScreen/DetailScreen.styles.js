@@ -76,5 +76,13 @@ export const styles = StyleSheet.create({
     width: 100,
     marginTop: 8,
     marginBottom:8
+  },
+  markerImage:{
+    width:35,
+    height:35
+  },
+  markerTitle:{
+    backgroundColor: COLORS.primary,
+    color:COLORS.white
   }
 })

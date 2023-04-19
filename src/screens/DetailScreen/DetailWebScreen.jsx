@@ -5,11 +5,12 @@ import WebView from 'react-native-webview'
 
 export const DetailWebScreen = ({ route }) => {
   const { url } = route.params
-  
+
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.container}> 
       <WebView
-        source={{ uri: url }}
+      //  source={{ uri: url }}
+        source={{ uri: 'www.google.com' }}
       />
     </SafeAreaView>
     

@@ -3,8 +3,9 @@ import {View, Text, ScrollView, Image} from 'react-native'
 import { styles} from '../DetailScreen/DetailScreen.styles'
 import { COLORS } from '../../utils/theme'
 import MapView, { Marker } from 'react-native-maps'
-import { Fontisto, Foundation, Octicons, Entypo, MaterialCommunityIcons } from '@expo/vector-icons'
+import { Fontisto, Foundation, Entypo } from '@expo/vector-icons'
 import { Link } from '@react-navigation/native'
+
 
 export const DetailScreen = ({route}) => {
   const { data } = route.params
@@ -13,7 +14,7 @@ export const DetailScreen = ({route}) => {
       <View style={styles.imageContainer}>         
           <ScrollView horizontal pagingEnabled style={styles.imageContainer}>           
           <Image
-           style={styles.image}
+            style={styles.image}
             source={{ uri: data.images[0] }}
             resizeMode='cover'/>
           <Image
@@ -43,11 +44,11 @@ export const DetailScreen = ({route}) => {
         </View>
         <Text style={styles.content}>{data.content}</Text>    
 
-        
-
-        <Link style={styles.webButton} to={{ screen: 'DetailWeb', params: { url: data.url } }}>
+      
+        <Link style={styles.webButton} to={{ screen: 'DetailWeb', params: { uri: data.url } }}>
             Ir a la web
         </Link>
+
       </View>
 
     
@@ -62,9 +63,11 @@ export const DetailScreen = ({route}) => {
         >
         <Marker
           coordinate={{latitude:data.latitude,longitude:data.longitude}}
-          title={data.location}
-
-        />
+          title={data.location}>
+          <Image 
+          style={styles.markerImage}
+          source={require("../../../assets/location.png")}/>
+         </Marker>
       </MapView>
 
       <View style={styles.authorContainer}>
