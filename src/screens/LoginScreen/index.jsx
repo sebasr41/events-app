@@ -7,29 +7,15 @@ import { login } from '../../services/user'
 import { UserContext } from '../../contexts/UserContext'
 import { Entypo, MaterialIcons } from '@expo/vector-icons'
 import { yupResolver } from '@hookform/resolvers/yup'
-import * as yup from 'yup'
 import * as SecureStore from 'expo-secure-store'
 import { LoaderBtn } from '../../components/LoaderBtn'
-
-const schema = yup.object({
-  email: yup.string()
-    .email('El correo electrónico no es válido')
-    .required('El correo electrónico es obligatorio')
-    .max(255, 'El correo electrónico no debe tener más de 255 caracteres')
-    .matches(
-      /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-      'El correo electrónico no es válido'
-    ),
-  password: yup.string()
-    .required('La contraseña es obligatoria')
-}).required()
-
+import { loginSchema } from '../../utils/validations'
 export const LoginScreen = ({ onSwitchToRegister }) => {
   const [isPasswordVisible, setPasswordVisible] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const { setCurrentUser } = useContext(UserContext)
   const { control, handleSubmit, formState: { errors } } = useForm({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(loginSchema),
     defaultValues: {
       email: '',
       password: ''
