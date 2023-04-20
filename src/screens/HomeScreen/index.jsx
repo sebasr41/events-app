@@ -6,8 +6,10 @@ import { useEvents } from '../../hooks/useEvents'
 import { Carousel } from '../../components/Carousel'
 import { SkeletonHome } from '../../components/SkeletonHome'
 import { NotFound } from '../../components/NotFound'
+import { SkeletonCardList } from '../../components/SkeletonCardList'
 
-export function HomeScreen () {
+export function HomeScreen (  {navigation}
+) {
   const {
     events,
     isLoading,
@@ -25,6 +27,7 @@ export function HomeScreen () {
     loadEvents: loadLatestEvents
   } = useEvents({ isLatest: true })
 
+
   return (
     <>
       <HeaderHome
@@ -39,7 +42,7 @@ export function HomeScreen () {
         ? <SkeletonHome />
         : <FlatList
             data={events}
-            renderItem={({ item }) => <NewsCard item={item} />}
+            renderItem={({ item }) => <NewsCard item={item} navigation={navigation} />}
             keyExtractor={item => item._id}
             ItemSeparatorComponent={<Text> </Text>}
             showsVerticalScrollIndicator={false}
