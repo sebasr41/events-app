@@ -3,15 +3,15 @@ import { StyleSheet } from 'react-native'
 import { Fontisto } from '@expo/vector-icons'
 import { COLORS, SPACING } from '../utils/theme'
 import { HomeDetailStackScreen } from '../screens/HomeScreen/HomeDetailStackScreen'
-import { HomeScreen } from '../screens/HomeScreen'
-//import { DetailScreen } from '../screens/DetailScreen'
-
+import { ProfileScreen } from '../screens/ProfileScreen'
+import { FavoriteScreen } from '../screens/FavoriteScreen'
 const Tab = createBottomTabNavigator()
 
 const TAB_ICON = {
-  Home: 'home'
+  Inicio: 'home',
+  Profile: 'person',
+  Favorites: 'bookmark-alt'
 }
-
 const screenOptions = ({ route }) => {
   const iconName = TAB_ICON[route.name]
 
@@ -30,10 +30,11 @@ export function NavigationTab () {
   return (
     <Tab.Navigator screenOptions={screenOptions}>
       <Tab.Screen name='Inicio' component={HomeDetailStackScreen} />
+      <Tab.Screen name='Favorites' component={FavoriteScreen} />
+      <Tab.Screen name='Profile' component={ProfileScreen} />
     </Tab.Navigator>
   )
 }
-
 const styles = StyleSheet.create({
   tabBar: {
     height: SPACING.xxxl,
