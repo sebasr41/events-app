@@ -13,30 +13,23 @@ export const DetailScreen = ({route}) => {
    <ScrollView >
               
           <ScrollView horizontal pagingEnabled >
-            <View style={styles.imageContainer}>  
-               <LinearGradient
-                colors={['rgba(0,0,0,0.8)', 'transparent']}
-                 style={styles.linearGradient}
-                 start={{ x: 0, y: 0.9 }}
-                 end={{ x: 0, y: 0.2 }}
-                />         
+                   
                   { data.images.map((image,idx) => (
-                      <Image
-                      key={idx}
+                       <View style={styles.imageContainer }   key={idx}>  
+                       <LinearGradient
+                        colors={['rgba(0,0,0,0.8)', 'transparent']}
+                         style={styles.linearGradient}
+                         start={{ x: 0, y: 0.9 }}
+                         end={{ x: 0, y: 0.2 }}
+                        /> 
+                      <Image                   
                       source={{ uri: image }}                     
                       style={styles.image}
                       resizeMode='cover'/>
-                  ))}
-
-                {/* source={{ uri:  `https://events-app-backend.vercel.app/api/v1=${image}`} */}
-                {/* <Image
-                 style={styles.image}
-                 source={{ uri: data.images[0] }}
-                 resizeMode='cover'/> */}
-
-                 <Text style={styles.badge}>{data.category.join(', ')}</Text>
-                 <Text style={styles.title }>{data.title}</Text>  
-                </View>
+                      <Text style={styles.badge}>{data.category.join(', ')}</Text>
+                      <Text style={styles.title }>{data.title}</Text>  
+                     </View>
+                  ))}                
           </ScrollView>          
          
 <View style={styles.textConteiner}>
@@ -52,7 +45,7 @@ export const DetailScreen = ({route}) => {
 
         <View style={styles.ratingContainer}>
           <Foundation name="ticket" size={19} color={COLORS.primary} />
-          <Text style={styles.subtitle}>{"Precio de Entrada: "+data.price}</Text>
+          <Text style={styles.subtitle}>{"Precio de Entrada:"+data.price}</Text>
         </View>
 
         {data.content.map((item,index) => (
