@@ -1,17 +1,18 @@
 /* eslint-disable react/jsx-closing-tag-location */
 import React, { useState } from 'react'
-import { View, Text, TextInput, TouchableOpacity, ScrollView, ToastAndroid } from 'react-native'
+import { View, Text, TouchableOpacity, ScrollView } from 'react-native'
 import { styles } from './SignupScreen.styles'
-import { useForm, Controller } from 'react-hook-form'
-import { signup } from '../../services/user'
-import { Entypo, MaterialIcons } from '@expo/vector-icons'
+import { useForm } from 'react-hook-form'
+import { Entypo } from '@expo/vector-icons'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { LoaderBtn } from '../../components/LoaderBtn'
 import { signUpSchema } from '../../utils/validations'
+import { useSignup } from '../../hooks/useSignup'
+import { InputControlled } from '../../components/InputControlled'
 export const SignupScreen = ({ onSwitchToLogin }) => {
   const [isPasswordVisible, setPasswordVisible] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
-  const { control, handleSubmit, formState: { errors } } = useForm({
+  const { isLoading, userSignup } = useSignup(onSwitchToLogin)
+  const { control, handleSubmit } = useForm({
     resolver: yupResolver(signUpSchema),
     defaultValues: {
       username: '',
@@ -25,20 +26,7 @@ export const SignupScreen = ({ onSwitchToLogin }) => {
   }
 
   const handleSignUp = ({ email, password, username }) => {
-    setIsLoading(true)
-    signup(email, password, username)
-      .then(data => {
-        if (data.statusCode === 403 && data.error === 'Forbidden') {
-          ToastAndroid.show('El usuario ya se encuentra registrado', ToastAndroid.SHORT)
-          return
-        }
-        if (data.error === false) {
-          ToastAndroid.show('Usuario registrado exitosamente', ToastAndroid.SHORT)
-          onSwitchToLogin()
-        }
-      })
-      .catch(err => console.warn(err))
-      .finally(() => setIsLoading(false))
+    userSignup({ email, password, username })
   }
 
   return (
@@ -47,86 +35,35 @@ export const SignupScreen = ({ onSwitchToLogin }) => {
     >
       <View style={styles.container}>
         <Text style={styles.title}>Regístrate</Text>
-        <View style={styles.inputContainer}>
-          <Controller
-            control={control}
-            name='username'
-            rules={{ required: 'El nombre de usuario es requerido' }}
-            render={({ field: { onChange, onBlur, value } }) => (
-              <TextInput
-                style={styles.input}
-                placeholder='Nombre de usuario'
-                onBlur={onBlur}
-                value={value}
-                onChangeText={onChange}
-                autoCapitalize='none'
-              />
-            )}
-          />
-          {errors.username &&
-            <View style={styles.errorContainer}>
-              <MaterialIcons name='error-outline' size={20} color='red' />
-              <Text style={styles.errorText}>{errors.username.message}</Text>
-            </View>}
-        </View>
+        <InputControlled
+          control={control}
+          name='username'
+          placeholder='Nombre de usuario'
+        />
 
-        <View style={styles.inputContainer}>
-          <Controller
-            control={control}
-            name='email'
-            rules={{ required: 'El correo electrónico es requerido' }}
-            render={({ field: { onChange, onBlur, value } }) => (
-              <TextInput
-                style={styles.input}
-                placeholder='Correo electrónico'
-                onBlur={onBlur}
-                value={value}
-                onChangeText={onChange}
-                autoCapitalize='none'
-              />
+        <InputControlled
+          control={control}
+          name='email'
+          placeholder='Correo electrónico'
+        />
 
-            )}
-          />
-          {errors.email &&
-            <View style={styles.errorContainer}>
-              <MaterialIcons name='error-outline' size={20} color='red' />
-              <Text style={styles.errorText}>{errors.email.message}</Text>
-            </View>}
-        </View>
-
-        <View style={styles.inputContainer}>
-          <Controller
-            control={control}
-            name='password'
-            rules={{ required: 'La constraseña es requerida' }}
-            render={({ field: { onBlur, onChange, value } }) => (
-              <View>
-                <TextInput
-                  style={styles.input}
-                  placeholder='Contraseña'
-                  onBlur={onBlur}
-                  onChangeText={onChange}
-                  value={value}
-                  secureTextEntry={!isPasswordVisible}
-                />
-              </View>
-
-            )}
-          />
+        <InputControlled
+          control={control}
+          name='password'
+          placeholder='Contraseña'
+          secureTextEntry={!isPasswordVisible}
+        >
           <TouchableOpacity
             onPress={togglePasswordVisibility}
             style={styles.toggleIcon}
           >
             <Text style={styles.passwordToggleText}>
-              {isPasswordVisible ? <Entypo name='eye-with-line' size={24} color='black' /> : <Entypo name='eye' size={24} color='black' />}
+              {isPasswordVisible
+                ? <Entypo name='eye-with-line' size={24} color='black' />
+                : <Entypo name='eye' size={24} color='black' />}
             </Text>
           </TouchableOpacity>
-          {errors.password &&
-            <View style={styles.errorContainer}>
-              <MaterialIcons name='error-outline' size={20} color='red' />
-              <Text style={styles.errorText}>{errors.password.message}</Text>
-            </View>}
-        </View>
+        </InputControlled>
 
         {
          isLoading
