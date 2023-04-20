@@ -1,11 +1,11 @@
 import { BACKEND_URL } from '../utils/constants'
 
-const defaultUrl = `${BACKEND_URL}/auth/login`
+const loginUrl = `${BACKEND_URL}/auth/login`
 const signUpUrl = `${BACKEND_URL}/auth/signup`
 
-export const login = async (email, password) => {
+export const login = async ({ email, password }) => {
   try {
-    const response = await fetch(defaultUrl, {
+    const response = await fetch(loginUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

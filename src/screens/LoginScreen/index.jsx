@@ -1,20 +1,19 @@
 /* eslint-disable react/jsx-closing-tag-location */
-import React, { useContext, useState } from 'react'
-import { View, Text, TextInput, TouchableOpacity, ToastAndroid } from 'react-native'
-import { styles } from './LoginScreen.styles'
-import { useForm, Controller } from 'react-hook-form'
-import { login } from '../../services/user'
-import { UserContext } from '../../contexts/UserContext'
-import { Entypo, MaterialIcons } from '@expo/vector-icons'
+import { useState } from 'react'
+import { View, Text, TouchableOpacity } from 'react-native'
+import { useForm } from 'react-hook-form'
+import { Entypo } from '@expo/vector-icons'
 import { yupResolver } from '@hookform/resolvers/yup'
-import * as SecureStore from 'expo-secure-store'
+import { styles } from './LoginScreen.styles'
 import { LoaderBtn } from '../../components/LoaderBtn'
 import { loginSchema } from '../../utils/validations'
+import { InputControlled } from '../../components/InputControlled'
+import { useLogin } from '../../hooks/useLogin'
+
 export const LoginScreen = ({ onSwitchToRegister }) => {
   const [isPasswordVisible, setPasswordVisible] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
-  const { setCurrentUser } = useContext(UserContext)
-  const { control, handleSubmit, formState: { errors } } = useForm({
+  const { isLoading, userLogin } = useLogin()
+  const { control, handleSubmit } = useForm({
     resolver: yupResolver(loginSchema),
     defaultValues: {
       email: '',
@@ -26,100 +25,48 @@ export const LoginScreen = ({ onSwitchToRegister }) => {
     setPasswordVisible(!isPasswordVisible)
   }
 
-  async function save (key, value) {
-    await SecureStore.setItemAsync(key, value)
-  }
-
   const handleLogin = ({ email, password }) => {
-    setIsLoading(true)
-    login(email, password)
-      .then(data => {
-        if (data.error === 'Unauthorized') {
-          ToastAndroid.show('Usuario o contraseña incorrecta', ToastAndroid.SHORT)
-          return
-        }
-        const { username, email } = data.response.user
-        save('token', data.response.token)
-        setCurrentUser({ email, username })
-      })
-      .catch(err => console.warn(err))
-      .finally(() => setIsLoading(false))
+    userLogin({ email, password })
   }
-
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Inicia sesión</Text>
-      <View style={styles.inputContainer}>
-        <Controller
-          control={control}
-          name='email'
-          rules={{ required: 'El correo electrónico es requerido' }}
-          render={({ field: { onChange, onBlur, value } }) => (
-            <TextInput
-              style={styles.input}
-              placeholder='Correo electrónico'
-              onBlur={onBlur}
-              value={value}
-              onChangeText={onChange}
-              autoCapitalize='none'
-            />
-          )}
-        />
-        {errors.email &&
-          <View style={styles.errorContainer}>
-            <MaterialIcons name='error-outline' size={20} color='red' />
-            <Text style={styles.errorText}>{errors.email.message}</Text>
-          </View>}
-      </View>
 
-      <View style={styles.inputContainer}>
-        <Controller
-          control={control}
-          name='password'
-          rules={{ required: 'La constraseña es requerida' }}
-          render={({ field: { onBlur, onChange, value } }) => (
-            <View>
-              <TextInput
-                style={styles.input}
-                placeholder='Contraseña'
-                onBlur={onBlur}
-                onChangeText={onChange}
-                value={value}
-                secureTextEntry={!isPasswordVisible}
-              />
+      <InputControlled
+        control={control}
+        name='email'
+        placeholder='Correo electrónico'
+      />
 
-              <TouchableOpacity
-                onPress={togglePasswordVisibility}
-                style={styles.toggleIcon}
-              >
-                <Text style={styles.passwordToggleText}>
-                  {isPasswordVisible
-                    ? <Entypo name='eye-with-line' size={24} color='black' />
-                    : <Entypo name='eye' size={24} color='black' />}
-                </Text>
-              </TouchableOpacity>
-            </View>
-          )}
-        />
-
-        {errors.password &&
-          <View style={styles.errorContainer}>
-            <MaterialIcons name='error-outline' size={20} color='red' />
-            <Text style={styles.errorText}>{errors.password.message}</Text>
-          </View>}
-      </View>
+      <InputControlled
+        control={control}
+        name='password'
+        placeholder='Contraseña'
+        secureTextEntry={!isPasswordVisible}
+      >
+        <TouchableOpacity
+          onPress={togglePasswordVisibility}
+          style={styles.toggleIcon}
+        >
+          <Text style={styles.passwordToggleText}>
+            {isPasswordVisible
+              ? <Entypo name='eye-with-line' size={24} color='black' />
+              : <Entypo name='eye' size={24} color='black' />}
+          </Text>
+        </TouchableOpacity>
+      </InputControlled>
 
       {
-        isLoading
-          ? <LoaderBtn />
-          : <TouchableOpacity
-              disabled={isLoading}
-              style={styles.button} onPress={handleSubmit(handleLogin)}
-            >
-            <Text style={styles.buttonText}>Iniciar sesión</Text>
-          </TouchableOpacity>
-      }
-
+         isLoading
+           ? <LoaderBtn />
+           : <TouchableOpacity
+               style={styles.button}
+               disabled={isLoading}
+               onPress={handleSubmit(handleLogin)}
+             >
+             <Text style={styles.buttonText}>Iniciar Sesión</Text>
+           </TouchableOpacity>
+        }
       <View style={styles.tittleRegister}>
         <Text>
           ¿No tienes una cuenta?{' '}
