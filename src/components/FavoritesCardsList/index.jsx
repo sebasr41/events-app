@@ -6,7 +6,7 @@ import { styles } from './FavoritesCardList.styles'
 import { NotFound } from '../NotFound'
 
 export function FavoritesCardsList (props) {
-  const { favorites } = props
+  const { favorites, navigation } = props
   const [data, setData] = useState(favorites[0].news)
 
   const handleChange = (query) => {
@@ -30,7 +30,7 @@ export function FavoritesCardsList (props) {
         ? <NotFound />
         : <FlatList
             data={data}
-            renderItem={({ item }) => <NewsCard item={item} />}
+            renderItem={({ item }) => <NewsCard item={item} navigation={navigation} />}
             keyExtractor={item => item._id}
             ItemSeparatorComponent={<Text> </Text>}
           />}
