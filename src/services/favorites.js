@@ -3,10 +3,11 @@ import { getTokenStored } from '../utils/getTokenStored'
 
 const url = `${BACKEND_URL}/favorites`
 
-export const getFavorites = () => {
+export const getFavorites = async () => {
+  const token = await getTokenStored()
   return fetch(url, {
     headers: {
-      Authorization: 'Bearer ' + getTokenStored()
+      Authorization: 'Bearer ' + token
     }
   })
     .then(response => response.json())
