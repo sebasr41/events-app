@@ -1,12 +1,18 @@
-import React, { useContext } from 'react'
 import { View, Text, Image, TouchableOpacity, ScrollView } from 'react-native'
+import * as SecureStore from 'expo-secure-store'
 import { styles } from './UserInfoScreen.styles'
-import { UserContext } from '../../contexts/UserContext'
-export const UserInfoScreen = () => {
-  const { currentUser, setCurrentUser } = useContext(UserContext)
+import useCurrentUser from '../../hooks/useCurrentUser'
 
-  const handleLogout = () => {
+export const UserInfoScreen = () => {
+  const { currentUser, setCurrentUser } = useCurrentUser()
+
+  async function deleteToken (key) {
+    await SecureStore.deleteItemAsync(key)
+  }
+
+  const handleLogout = async () => {
     setCurrentUser(null)
+    await deleteToken('token')
   }
 
   return (
