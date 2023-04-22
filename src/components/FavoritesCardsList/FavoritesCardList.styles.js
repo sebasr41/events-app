@@ -1,13 +1,10 @@
 import { StyleSheet, StatusBar } from 'react-native'
 
 export const styles = StyleSheet.create({
-  container: {
-    marginTop: StatusBar.currentHeight
-  },
   searchContainer: {
+    marginTop: StatusBar.currentHeight + 10,
     position: 'relative',
     marginBottom: 30,
-    marginTop: 10,
     marginLeft: 'auto',
     marginRight: 'auto',
     width: '90%'

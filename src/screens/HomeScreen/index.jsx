@@ -6,10 +6,8 @@ import { useEvents } from '../../hooks/useEvents'
 import { Carousel } from '../../components/Carousel'
 import { SkeletonHome } from '../../components/SkeletonHome'
 import { NotFound } from '../../components/NotFound'
-import { SkeletonCardList } from '../../components/SkeletonCardList'
 
-export function HomeScreen (  {navigation}
-) {
+export function HomeScreen ({ navigation }) {
   const {
     events,
     isLoading,
@@ -26,7 +24,6 @@ export function HomeScreen (  {navigation}
     setNextUrl: setNextUrlToLatestEvents,
     loadEvents: loadLatestEvents
   } = useEvents({ isLatest: true })
-
 
   return (
     <>

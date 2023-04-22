@@ -1,22 +1,22 @@
-import { StyleSheet, StatusBar, Dimensions } from 'react-native'
-import { COLORS, FONT_SIZE, SPACING } from '../../utils/theme'
+import { StyleSheet, Dimensions, StatusBar } from 'react-native'
+import { COLORS, SPACING } from '../../utils/theme'
 
 export const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: COLORS.white,
-    marginTop: StatusBar.currentHeight
-  },
   imageContainer: {
     height: 350,
     position: 'relative',
-    overflow: 'hidden',
-    marginBottom: SPACING.md
+    marginBottom: SPACING.lg
+  },
+  linearGradient: {
+    position: 'absolute',
+    zIndex: 1,
+    width: '100%',
+    height: '100%',
+    overflow: 'hidden'
   },
   image: {
     width: Dimensions.get('screen').width,
-    height: 350,
-    borderRadius: 20
+    height: 350
   },
   badge: {
     position: 'absolute',
@@ -26,62 +26,69 @@ export const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 20,
     top: 10,
-    left: 10},
-
-  subtitle: {
-    color: COLORS['light-gray'],
-    fontWeight: 600,
-    marginLeft:10
+    left: 10,
+    marginTop: 160
   },
   title: {
     position: 'absolute',
     color: COLORS.white,
     fontSize: 24,
     fontWeight: 'bold',
-    marginTop:210,
+    marginTop: 210,
     marginBottom: 10,
-    marginRight:5,
-    marginLeft:10,
-    zIndex:1,
+    marginRight: 5,
+    marginLeft: 10,
+    zIndex: 1
   },
-  location: {
-    fontSize: 19,
-    color: COLORS['light-gray'],
-    marginBottom: 5
+  bookmark: {
+    position: 'absolute',
+    zIndex: 1,
+    top: StatusBar.currentHeight + 10,
+    right: 12,
+    width: 30,
+    height: 30,
+    borderRadius: 16
   },
-  price: {
-    fontSize: 20,
-    color: COLORS['light-gray'],
-    marginBottom: 5
+  textContainer: {
+    backgroundColor: COLORS.white,
+    position: 'relative',
+    zIndex: 1,
+    borderTopRightRadius: 30,
+    borderTopLeftRadius: 30,
+    marginTop: -50,
+    paddingTop: 18
   },
-  ratingContainer: {
+  subContainer: {
+    width: '90%',
+    marginLeft: 'auto',
+    marginRight: 'auto'
+  },
+  detailContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginLeft:10,
-    marginBottom:8
-  },authorContainer: {
+    marginBottom: 12,
+    gap: 8
+  },
+  text: {
+    color: COLORS['light-gray'],
+    fontWeight: 600
+  },
+  map: {
+    height: 300,
+    marginVertical: 20
+  },
+  authorContainer: {
     flexDirection: 'row',
-    alignItems:"center",
-    marginLeft:8,
-    marginTop:0,
-    marginBottom:8
-  },rating: {
+    alignItems: 'center',
     marginLeft: 8,
-    color: COLORS.text,
-    fontSize: FONT_SIZE.md
+    marginTop: 0,
+    marginBottom: 8
   },
   content: {
     fontSize: 16,
     lineHeight: 20,
     marginTop: 10,
-    marginLeft:8,
-    marginRight:8,
-    marginBottom:10,
-  },
-  map: {
-    height: 300,
-    marginVertical: 20,
-    borderRadius: 10
+    marginBottom: 10
   },
   webButton: {
     textAlign: 'center',
@@ -92,41 +99,10 @@ export const styles = StyleSheet.create({
     paddingVertical: 10,
     width: 100,
     marginTop: 8,
-    marginBottom:8
+    marginBottom: 8
   },
-  markerImage:{
-    width:35,
-    height:35
-  },
-  markerTitle:{
-    backgroundColor: COLORS.primary,
-    color:COLORS.white
-  },
-  linearGradient: {
-    position: 'absolute',
-    zIndex: 1,
-    width: '100%',
-    height: '100%',
-    overflow: 'hidden'
-  }, badge: {
-    position: 'absolute',
-    backgroundColor: COLORS.primary,
-    color: COLORS.white,
-    zIndex: 10,
-    padding: 10,
-    borderRadius: 20,
-    top: 10,
-    left: 10,
-    marginTop:160
-  },
-  textConteiner:{
-    backgroundColor:COLORS.white,
-    position: 'relative',
-    zIndex:10,
-    borderTopRightRadius:30,
-    borderTopLeftRadius:30,
-    marginTop:-50,
-    paddingTop: 15,
-
+  markerImage: {
+    width: 35,
+    height: 35
   }
 })
