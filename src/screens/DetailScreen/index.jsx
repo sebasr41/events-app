@@ -1,19 +1,18 @@
 import { useState } from 'react'
-import { View, Text, ScrollView, Image, StatusBar, TouchableOpacity, ToastAndroid } from 'react-native'
+import { View, Text, ScrollView, Image, StatusBar, TouchableOpacity } from 'react-native'
 import MapView, { Marker } from 'react-native-maps'
 import { Link } from '@react-navigation/native'
 import { Fontisto, Foundation, Entypo, Ionicons } from '@expo/vector-icons'
 import { LinearGradient } from 'expo-linear-gradient'
 import { styles } from '../DetailScreen/DetailScreen.styles'
 import { COLORS } from '../../utils/theme'
-import { addOrRemoveFavorite } from '../../services/favorites'
-import { useFavorites } from '../../hooks/useFavorites'
+import { useFavoriteItem } from '../../hooks/useFavoriteItem'
 
 const HEIGHT = 130
 
 export const DetailScreen = ({ route }) => {
   const { data } = route.params
-  const { favorites, isLoading, refreshFavorites } = useFavorites()
+  const { favorites, isLoading, handleFavorite } = useFavoriteItem()
   const [scrollPosition, setScrollPosition] = useState(0)
 
   const handleScroll = (event) => {
@@ -22,28 +21,7 @@ export const DetailScreen = ({ route }) => {
   }
 
   const saveFavorite = (id) => {
-    if (favorites === undefined) {
-      ToastAndroid.show('Para poder guardar en favoritos, debes iniciar sesión', ToastAndroid.SHORT)
-      return
-    }
-
-    const isFavoriteFound = favorites[0]?.news?.find(item => item._id === data._id)
-
-    addOrRemoveFavorite({ id, remove: isFavoriteFound })
-      .then(res => {
-        console.log({ res })
-        if (res.data.message === 'News removed from favorites') {
-          ToastAndroid.show('Se ha quitado de favoritos', ToastAndroid.SHORT)
-          return
-        }
-        ToastAndroid.show('Guardado en favoritos', ToastAndroid.SHORT)
-      })
-      .catch(error => {
-        console.log({ error })
-      })
-      .finally(() => {
-        refreshFavorites()
-      })
+    handleFavorite({ id, data })
   }
 
   return (
