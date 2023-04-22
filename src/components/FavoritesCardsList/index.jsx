@@ -7,17 +7,16 @@ import { NotFound } from '../NotFound'
 
 export function FavoritesCardsList (props) {
   const { favorites, navigation } = props
-  const [data, setData] = useState(favorites[0].news)
+  const [query, setQuery] = useState('')
+
+  const data = favorites[0].news.filter(favorite => favorite.title.toLowerCase().includes(query.toLowerCase()))
 
   const handleChange = (query) => {
-    if (query === '') return setData(favorites[0].news)
-
-    const dataFiltered = data.filter(favorite => favorite.title.toLowerCase().includes(query.toLowerCase()))
-    setData(dataFiltered)
+    setQuery(query)
   }
 
   return (
-    <View style={styles.container}>
+    < >
       <View style={styles.searchContainer}>
         <Fontisto name='search' size={24} color='#86858c' style={styles.searchIcon} />
         <TextInput
@@ -34,6 +33,6 @@ export function FavoritesCardsList (props) {
             keyExtractor={item => item._id}
             ItemSeparatorComponent={<Text> </Text>}
           />}
-    </View>
+    </>
   )
 }

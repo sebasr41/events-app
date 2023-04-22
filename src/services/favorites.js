@@ -18,3 +18,21 @@ export const getFavorites = async () => {
       }
     })
 }
+
+export const addOrRemoveFavorite = async ({ id, remove }) => {
+  const token = await getTokenStored()
+  const urlToFetch = remove === undefined ? `${url}?id=${id}` : `${url}?id=${id}&remove=true`
+  return fetch(urlToFetch, {
+    method: 'POST',
+    headers: {
+      Authorization: 'Bearer ' + token,
+      'Content-Type': 'application/json'
+    }
+  })
+    .then(response => response.json())
+    .then(data => {
+      return {
+        data
+      }
+    })
+}
