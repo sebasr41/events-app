@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { View, Text, ScrollView, Image, StatusBar, TouchableOpacity } from 'react-native'
 import MapView, { Marker } from 'react-native-maps'
-import { Link } from '@react-navigation/native'
+import { Link, useNavigation } from '@react-navigation/native'
 import { Fontisto, Foundation, Entypo, Ionicons } from '@expo/vector-icons'
 import { LinearGradient } from 'expo-linear-gradient'
 import { styles } from '../DetailScreen/DetailScreen.styles'
@@ -14,6 +14,7 @@ export const DetailScreen = ({ route }) => {
   const { data } = route.params
   const { favorites, isLoading, handleFavorite } = useFavoriteItem()
   const [scrollPosition, setScrollPosition] = useState(0)
+  const navigation = useNavigation()
 
   const handleScroll = (event) => {
     const { contentOffset } = event.nativeEvent
@@ -22,6 +23,10 @@ export const DetailScreen = ({ route }) => {
 
   const saveFavorite = (id) => {
     handleFavorite({ id, data })
+  }
+
+  const goBackScreen = () => {
+    navigation.goBack()
   }
 
   return (
@@ -65,6 +70,14 @@ export const DetailScreen = ({ route }) => {
                   favorites[0]?.news?.find(item => item._id === data._id)
                   ? <Ionicons name='bookmark' size={30} color={COLORS.white} />
                   : <Ionicons name='bookmark-outline' size={30} color={COLORS.white} />}
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                disabled={isLoading}
+                style={styles.chevron}
+                onPress={goBackScreen}
+              >
+                <Entypo name='chevron-thin-left' size={30} color={COLORS.white} />
               </TouchableOpacity>
             </View>
           ))}

@@ -46,8 +46,15 @@ export const styles = StyleSheet.create({
     top: StatusBar.currentHeight + 10,
     right: 12,
     width: 30,
-    height: 30,
-    borderRadius: 16
+    height: 30
+  },
+  chevron: {
+    position: 'absolute',
+    zIndex: 1,
+    top: StatusBar.currentHeight + 13,
+    left: 12,
+    width: 30,
+    height: 30
   },
   textContainer: {
     backgroundColor: COLORS.white,
