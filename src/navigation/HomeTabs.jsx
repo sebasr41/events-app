@@ -2,13 +2,13 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { StyleSheet } from 'react-native'
 import { Fontisto } from '@expo/vector-icons'
 import { COLORS, SPACING } from '../utils/theme'
-import { HomeDetailStackScreen } from '../screens/HomeScreen/HomeDetailStackScreen'
 import { ProfileScreen } from '../screens/ProfileScreen'
 import { FavoriteScreen } from '../screens/FavoriteScreen'
+import { HomeScreen } from '../screens/HomeScreen'
 const Tab = createBottomTabNavigator()
 
 const TAB_ICON = {
-  Inicio: 'home',
+  Home: 'home',
   Profile: 'person',
   Favorites: 'bookmark-alt'
 }
@@ -26,15 +26,28 @@ const screenOptions = ({ route }) => {
   }
 }
 
-export function NavigationTab () {
+export function HomeTabs () {
   return (
     <Tab.Navigator screenOptions={screenOptions}>
-      <Tab.Screen name='Inicio' component={HomeDetailStackScreen} />
-      <Tab.Screen name='Favorites' component={FavoriteScreen} />
-      <Tab.Screen name='Profile' component={ProfileScreen} />
+      <Tab.Screen
+        name='Home'
+        options={{ title: 'Inicio' }}
+        component={HomeScreen}
+      />
+      <Tab.Screen
+        name='Favorites'
+        options={{ title: 'Favoritos' }}
+        component={FavoriteScreen}
+      />
+      <Tab.Screen
+        name='Profile'
+        options={{ title: 'Perfil' }}
+        component={ProfileScreen}
+      />
     </Tab.Navigator>
   )
 }
+
 const styles = StyleSheet.create({
   tabBar: {
     height: SPACING.xxxl,
