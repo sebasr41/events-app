@@ -1,63 +1,64 @@
 import { StatusBar, StyleSheet } from 'react-native'
-import { COLORS } from '../../utils/theme'
+import { COLORS, SPACING } from '../../utils/theme'
 
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: COLORS.white,
     marginTop: StatusBar.currentHeight
   },
   header: {
-    backgroundColor: '#F0F0F0',
-    flexDirection: 'row',
-    padding: 20,
-    borderBottomColor: '#EFEFEF',
-    borderBottomWidth: 1
+    borderRadius: 100,
+    borderWidth: 3,
+    borderColor: COLORS.primary,
+    borderStyle: 'dashed',
+    width: 90,
+    height: 90,
+    backgroundColor: '#f2f2f2',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    marginTop: SPACING.xl,
+    marginBottom: SPACING.md,
+    overflow: 'hidden'
   },
   profileImage: {
     width: 80,
-    height: 80,
-    borderRadius: 40,
-    marginRight: 5
+    height: 80
   },
   profileInfo: {
-    justifyContent: 'center'
+    width: '90%',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    marginBottom: SPACING.lg
   },
   profileUsername: {
     fontSize: 20,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    textAlign: 'center'
   },
   profileEmail: {
     fontSize: 16,
-    color: '#777'
+    color: '#777',
+    textAlign: 'center'
   },
   content: {
     flex: 1,
     padding: 20
   },
-  sectionTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginBottom: 10
+  profileActions: {
+    width: '90%',
+    marginLeft: 'auto',
+    marginRight: 'auto'
   },
-  sectionText: {
-    fontSize: 16,
-    marginBottom: 20,
-    lineHeight: 24
+  itemAction: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+    paddingVertical: 20,
+    borderBottomWidth: 1,
+    borderColor: '#ccc'
   },
-  button: {
-    justifyContent: 'center',
-    backgroundColor: COLORS.primary,
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 20,
-    marginTop: 15,
-    marginLeft: 10,
-    height: 50
-  },
-  buttonText: {
-    color: COLORS.white,
-    fontSize: 18,
-    fontWeight: 'bold'
+  logout: {
+    borderBottomWidth: 0
   }
 })
