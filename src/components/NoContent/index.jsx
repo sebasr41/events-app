@@ -7,7 +7,7 @@ export function NoContent () {
     <View style={styles.container}>
       <Text style={styles.title}>¡Hola! Parece que aún no has guardado ningun evento en tus favoritos.</Text>
       <Text style={styles.paragraph}>
-        Agrega tus eventos favoritos presionando en el botón "Agregar a favoritos". ¡Así podrás acceder a ellos fácilmente en el futuro y no perderte los mejores eventos!
+        Agrega tus eventos favoritos presionando en el botón "Marcar como favorito". ¡Así podrás acceder a ellos fácilmente en el futuro y no perderte los mejores eventos!
       </Text>
       <LottieView
         autoPlay

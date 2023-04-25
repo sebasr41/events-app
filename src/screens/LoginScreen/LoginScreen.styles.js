@@ -62,6 +62,6 @@ export const styles = StyleSheet.create({
   toggleIcon: {
     position: 'absolute',
     top: 10,
-    left: 260
+    right: 15
   }
 })
